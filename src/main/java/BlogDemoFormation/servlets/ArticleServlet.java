@@ -28,8 +28,7 @@ public class ArticleServlet extends HttpServlet {
 			this.getServletContext().getRequestDispatcher("/WEB-INF/article/create_article.jsp").forward(req, resp);
 		} else {
 			resp.sendRedirect("/BlogDemoFormation/utilisateurs");
-		}
-		
+		}	
 	}
 
 	@Override

@@ -30,17 +30,14 @@ public class UtilisateurServlet extends HttpServlet {
 			String nom = req.getParameter("nom");
 			String prenom = req.getParameter("prenom");
 			String email = req.getParameter("email");
+			String password = req.getParameter("password");
 			String message;
 	
 			if (nom.trim().isEmpty() || prenom.trim().isEmpty() || email.trim().isEmpty()) {
 				message = "Merci de remplir tout les champs";
 				req.setAttribute("message", message);
 			} else {
-				Utilisateur utilisateur = new Utilisateur();
-				utilisateur.setEmail(email);
-				utilisateur.setNom(nom);
-				utilisateur.setPrenom(prenom);
-				this.utilisateurs.add(utilisateur);
+				Utilisateur utilisateur = this.service.createUtilisateur(nom, prenom, email, password);
 				this.service.setUtilisateur(utilisateur);
 			}
 			req.setAttribute("utilisateurs", this.utilisateurs);

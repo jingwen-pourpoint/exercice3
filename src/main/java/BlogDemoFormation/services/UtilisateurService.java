@@ -10,7 +10,11 @@ public class UtilisateurService {
 	private static UtilisateurService instance = null;
 	private List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();	
 	
-	private UtilisateurService() {}
+	private UtilisateurService() {
+		utilisateurs.add(
+				this.createUtilisateur("Fissot", "Antoine", "antoine@semifir.com", "1234")
+		);
+	}
 	
 	public static UtilisateurService getInstance() {
 		if (UtilisateurService.instance == null) {
@@ -43,5 +47,14 @@ public class UtilisateurService {
 			response = true;
 		}
 		return response;
+	}
+	
+	public Utilisateur createUtilisateur(String nom, String prenom, String email, String password) {
+		Utilisateur utilisateur = new Utilisateur();
+		utilisateur.setEmail(email);
+		utilisateur.setNom(nom);
+		utilisateur.setPrenom(prenom);
+		utilisateur.setPassword(password);
+		return utilisateur;
 	}
 }
