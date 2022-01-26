@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import BlogDemoFormation.beans.Utilisateur;
+import BlogDemoFormation.services.UtilisateurService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 public class UtilisateurServlet extends HttpServlet {
 	
 	private List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
+	private UtilisateurService service = UtilisateurService.getInstance();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,10 +41,9 @@ public class UtilisateurServlet extends HttpServlet {
 				utilisateur.setNom(nom);
 				utilisateur.setPrenom(prenom);
 				this.utilisateurs.add(utilisateur);
+				this.service.setUtilisateur(utilisateur);
 			}
 			req.setAttribute("utilisateurs", this.utilisateurs);
-			HttpSession session = req.getSession();
-			session.setAttribute("utilisateurs", utilisateurs);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/utilisateur/create_utilisateur.jsp").forward(req, resp);
 	}
 
