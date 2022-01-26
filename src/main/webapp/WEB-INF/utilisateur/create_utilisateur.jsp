@@ -10,17 +10,9 @@
 </head>
 <body>
 	<h1>Ajouter un utilisateur</h1>
+	<a href="/BlogDemoFormation/articles">Voir les articles</a>
 	<br>
-	<% 
-		if (request.getAttribute("message") != null) {
-			String message = request.getAttribute("message").toString();
-			if (message != null) {
-				out.println(message);
-				out.println("<br>");
-				out.println("<br>");
-			}
-		}
-	%>
+	<%@ include file="/WEB-INF/generic/message.jsp" %>
 	<form action="" method="post">
 		<label for="nom">Nom : </label>
 		<br>

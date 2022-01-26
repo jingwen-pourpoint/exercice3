@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = "/utilisateurs")
 public class UtilisateurServlet extends HttpServlet {
@@ -40,6 +41,8 @@ public class UtilisateurServlet extends HttpServlet {
 				this.utilisateurs.add(utilisateur);
 			}
 			req.setAttribute("utilisateurs", this.utilisateurs);
+			HttpSession session = req.getSession();
+			session.setAttribute("utilisateurs", utilisateurs);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/utilisateur/create_utilisateur.jsp").forward(req, resp);
 	}
 
