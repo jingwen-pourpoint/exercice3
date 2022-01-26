@@ -10,10 +10,11 @@
 </head>
 <body>
 	<h1>Ajouter un utilisateur</h1>
-	<a href="/BlogDemoFormation/articles">Voir les articles</a>
+	<a href="${pageContext.request.contextPath}/articles">Voir les articles</a><br>
+	<a href="${pageContext.request.contextPath}/categories">Voir les catégories</a>
 	<br>
 	<%@ include file="/WEB-INF/generic/message.jsp" %>
-	<form action="" method="post">
+	<form action="${pageContext.request.contextPath}/utilisateurs" method="post">
 		<label for="nom">Nom : </label>
 		<br>
 		<input type="text" id="nom" name="nom">

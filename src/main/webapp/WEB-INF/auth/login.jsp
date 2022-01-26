@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="" method="post">
+	<form action="${pageContext.request.contextPath}/login" method="post">
 		<label for="email">Email : </label>
 		<br>
 		<input type="text" id="email" name="email">

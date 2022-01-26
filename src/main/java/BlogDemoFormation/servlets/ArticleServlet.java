@@ -6,6 +6,8 @@ import java.util.List;
 
 import BlogDemoFormation.beans.Article;
 import BlogDemoFormation.beans.Utilisateur;
+import BlogDemoFormation.services.ArticleService;
+import BlogDemoFormation.services.CategorieService;
 import BlogDemoFormation.services.UtilisateurService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,19 +18,19 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/articles")
 public class ArticleServlet extends HttpServlet {
-	
-	private List<Article> articles = new ArrayList<Article>();
-	private UtilisateurService service = UtilisateurService.getInstance();
-	
+
+	private UtilisateurService utilisateurService = UtilisateurService.getInstance();
+	private CategorieService categorieService = CategorieService.getInstance();
+	private ArticleService articleService = ArticleService.getInstance();
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		if (!this.service.isEmpty()) {
-			req.setAttribute("auteurs", this.service.getUtilisateurs());
-			req.setAttribute("articles", articles);
-			this.getServletContext().getRequestDispatcher("/WEB-INF/article/create_article.jsp").forward(req, resp);
-		} else {
-			resp.sendRedirect("/BlogDemoFormation/utilisateurs");
-		}	
+
+		req.setAttribute("auteurs", this.utilisateurService.getUtilisateurs());
+		req.setAttribute("categories", this.categorieService.getCategories());
+		req.setAttribute("articles", articleService.getArticles());
+		this.getServletContext().getRequestDispatcher("/WEB-INF/article/create_article.jsp").forward(req, resp);
+
 	}
 
 	@Override
@@ -36,23 +38,21 @@ public class ArticleServlet extends HttpServlet {
 		String titre = req.getParameter("titre");
 		String description = req.getParameter("description");
 		String contenu = req.getParameter("contenu");
-		String auteur = req.getParameter("auteur");	
-		String message; 
-		
-		if (titre.trim().isEmpty() || description.trim().isEmpty() || contenu.trim().isEmpty() || auteur.trim().isEmpty()) {
+		String auteur = req.getParameter("auteur");
+		String categorie = req.getParameter("categorie");
+		String message;
+
+		if (titre.trim().isEmpty() || description.trim().isEmpty() || contenu.trim().isEmpty() || categorie.trim().isEmpty()) {
 			message = "Merci de remplir tout les champs !";
 			req.setAttribute("message", message);
 		} else {
-			Article article = new Article(); 
-			article.setTitre(titre);
-			article.setContenu(contenu);
-			article.setDescription(description);
-			article.setAuteur(this.service.getUtilisateur(auteur));
-			articles.add(article);
+			Article article = articleService.createArticle(titre, description, contenu, auteur, categorie);
+			articleService.addArticle(article);
 		}
 
-		req.setAttribute("auteurs", this.service.getUtilisateurs());
-		req.setAttribute("articles", articles);
+		req.setAttribute("auteurs", this.utilisateurService.getUtilisateurs());
+		req.setAttribute("categories", this.categorieService.getCategories());
+		req.setAttribute("articles", this.articleService.getArticles());
 		this.getServletContext().getRequestDispatcher("/WEB-INF/article/create_article.jsp").forward(req, resp);
 	}
 

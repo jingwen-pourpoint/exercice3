@@ -5,7 +5,10 @@ public class Article {
 	private String description;
 	private String contenu;
 	private Utilisateur auteur;
+	private Categorie categorie;
+	
 	public Article() {}
+	
 	public String getTitre() {
 		return titre;
 	}
@@ -30,9 +33,22 @@ public class Article {
 	public void setAuteur(Utilisateur auteur) {
 		this.auteur = auteur;
 	}
+	
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+
 	@Override
 	public String toString() {
 		return "Article [titre=" + titre + ", description=" + description + ", contenu=" + contenu + ", auteur="
-				+ auteur + "]";
+				+ auteur + ", categorie=" + categorie + "]";
 	}
+	
+	
+	
 }
+

@@ -29,12 +29,13 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		Utilisateur utilisateur = this.service.getUtilisateur(email);
 		if (utilisateur != null) {
-			if (utilisateur.getPassword() == password) {
-				resp.sendRedirect("/BlogDemoFormation/utilisateurs");
+			if (utilisateur.getPassword().equals(password)) {
+				resp.sendRedirect(req.getContextPath() + "/utilisateurs");
 				session.setAttribute("utilisateur", utilisateur);
+				return;
 			}
-		} else {
-			this.getServletContext().getRequestDispatcher("/WEB-INF/auth/login.jsp").forward(req, resp);
-		}
+		} 
+		
+		this.getServletContext().getRequestDispatcher("/WEB-INF/auth/login.jsp").forward(req, resp);
 	}
 }

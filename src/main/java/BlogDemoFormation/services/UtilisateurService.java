@@ -11,9 +11,7 @@ public class UtilisateurService {
 	private List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();	
 	
 	private UtilisateurService() {
-		utilisateurs.add(
-				this.createUtilisateur("Fissot", "Antoine", "antoine@semifir.com", "1234")
-		);
+
 	}
 	
 	public static UtilisateurService getInstance() {
